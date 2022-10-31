@@ -1,17 +1,22 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from airflow import DAG
-from airflow.operators.trigger_dagrun import TriggerDagRunOperator
+from airflow.operators.bash import BashOperator
+from airflow.operators.dummy import DummyOperator
 
 with DAG(
-        dag_id="get_dataset",
-        start_date=datetime(2022, 10, 31),
+        dag_id='get_dataset',
+        schedule_interval='@once',
+        start_date=datetime(2022, 10, 25),
         catchup=False,
-        schedule_interval="@once",
-        tags=['test'],
+        tags=['test']
 ) as dag:
-    trigger = TriggerDagRunOperator(
-        task_id="load_and_prepare_dataset",
-        trigger_dag_id="get_dataset",  # Ensure this equals the dag_id of the DAG to trigger
-        conf={"message": "Hello World"},
+    run_this = BashOperator(
+        task_id='get_dataset_and_prepare',
+        bash_command='echo "get dataset success"',
     )
+
+
+
+if __name__ == "__main__":
+    dag.cli()
