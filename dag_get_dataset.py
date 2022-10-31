@@ -5,7 +5,7 @@ from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 
 with DAG(
         dag_id="get_dataset",
-        start_date=datetime(2022, 11, 1),
+        start_date=datetime(2022, 10, 31),
         catchup=False,
         schedule_interval="@once",
         tags=['test'],
