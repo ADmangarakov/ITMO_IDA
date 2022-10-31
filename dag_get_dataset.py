@@ -6,7 +6,7 @@ from airflow.operators.dummy import DummyOperator
 
 with DAG(
         dag_id='get_dataset',
-        schedule_interval='0 0 * * *',
+        schedule_interval='@once',
         start_date=datetime(2022, 10, 25),
         catchup=False,
         tags=['test']
